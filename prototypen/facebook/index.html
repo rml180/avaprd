@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <title>jQuery Example</title>
+    <script>
+        $.ajaxSetup({ cache: true });
+        $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+            FB.init({
+                appId: '{1818901901703199}',
+                version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+            });
+            $('#loginbutton,#feedbutton').removeAttr('disabled');
+            FB.getLoginStatus(function (response) {
+                console.log(response);
+            });
+        });
+
+
+
+    </script>
+</head>
+<body>
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.8&appId=1818901901703199";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+
+</body>
+</html>
