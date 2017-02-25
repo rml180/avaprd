@@ -1,40 +1,36 @@
-<!DOCTYPE html>
 <html>
-<head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <title>jQuery Example</title>
-    <script>
-        $.ajaxSetup({ cache: true });
-        $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
-            FB.init({
-                appId: '{1818901901703199}',
-                version: 'v2.7' // or v2.1, v2.2, v2.3, ...
-            });
-            $('#loginbutton,#feedbutton').removeAttr('disabled');
-            FB.getLoginStatus(function (response) {
-                console.log(response);
-            });
-        });
-
-
-
-    </script>
-</head>
 <body>
 
+<p><a href="#" onClick="logInWithFacebook()">Log In with the JavaScript SDK</a></p>
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.8&appId=1818901901703199";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+    logInWithFacebook = function() {
+        FB.login(function(response) {
+            if (response.authResponse) {
+                console.log('You are logged in &amp; cookie set!');
+                // Now you can redirect the user or do an AJAX request to
+                // a PHP script that grabs the signed request from the cookie.
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        });
+        return false;
+    };
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '1818901901703199',
+            cookie: true, // This is important, it's not enabled by default
+            version: 'v2.2'
+        });
+    };
 
-
-
-<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
-
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 </body>
 </html>
